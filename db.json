@@ -1,0 +1,456 @@
+{
+  "products": [
+    {
+      "name": "Günlük Süt",
+      "slug": "GSUT",
+      "code": "0010",
+      "birim": "Litre",
+      "fiyat": 5
+    },
+    {
+      "name": "Pastorize Süt",
+      "slug": "PSUT",
+      "code": "0001",
+      "birim": "Litre",
+      "fiyat": 5.5,
+      "isPacked": false,
+      "barkod": "8690328000015",
+      "netagirlik": ""
+    },
+    {
+      "name": "Taze Tulum",
+      "slug": "TTULU",
+      "code": "0311",
+      "birim": "KG",
+      "fiyat": 40.5,
+      "isPacked": false,
+      "barkod": "8690328003115",
+      "netagirlik": ""
+    },
+    {
+      "name": "Tulum",
+      "slug": "TULUM",
+      "code": "0312",
+      "birim": "KG",
+      "fiyat": 48,
+      "isPacked": false,
+      "barkod": "8690328003122",
+      "netagirlik": ""
+    },
+    {
+      "name": "Taze Lor",
+      "slug": "TLOR",
+      "code": "0113",
+      "birim": "KG",
+      "fiyat": 30
+    },
+    {
+      "name": "Lor",
+      "slug": "LOR",
+      "code": "0114",
+      "birim": "KG",
+      "fiyat": 30
+    },
+    {
+      "name": "Datça Köy Peyniri",
+      "slug": "DKOY",
+      "code": "0315",
+      "birim": "KG",
+      "fiyat": 40.5,
+      "isPacked": false,
+      "barkod": "8690328003153",
+      "netagirlik": ""
+    },
+    {
+      "name": "Terayağı",
+      "slug": "terey",
+      "code": "0501",
+      "birim": "KG",
+      "fiyat": 80
+    },
+    {
+      "name": "Tam Yağlı Köy Yoğurdu",
+      "slug": "TYKY",
+      "code": "0101",
+      "birim": "KG",
+      "isPacked": true,
+      "barkod": "869032800101",
+      "netagirlik": "5",
+      "fiyat": 27
+    },
+    {
+      "name": "Tam Yağlı Köy Yoğurdu",
+      "slug": "TYKY",
+      "code": "0109",
+      "birim": "KG",
+      "isPacked": true,
+      "barkod": "869032800109",
+      "netagirlik": "9",
+      "fiyat": 50
+    },
+    {
+      "name": "Datça Kaşar Peyniri",
+      "slug": "DKPY",
+      "code": "0301",
+      "birim": "KG",
+      "isPacked": true,
+      "barkod": "8690328003016",
+      "netagirlik": "",
+      "fiyat": 50
+    },
+    {
+      "name": "Tam Yağlı Köy Yoğurdu",
+      "slug": "TYKY",
+      "code": "0105",
+      "birim": "KG",
+      "isPacked": true,
+      "barkod": "869032800105",
+      "netagirlik": "5",
+      "fiyat": 27
+    },
+    {
+      "name": "Günlük Yumurta",
+      "slug": "YMRT",
+      "code": "0012",
+      "birim": "Adet",
+      "isPacked": false,
+      "barkod": "8690328000121",
+      "netagirlik": "",
+      "fiyat": 12
+    }
+  ],
+  "customer": [],
+  "satis": [
+    {
+      "fis": [
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "18.23",
+          "miktar": "0.450"
+        },
+        {
+          "adet": 2,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "117.45",
+          "miktar": "1.450"
+        }
+      ],
+      "satisTipi": "Nakit",
+      "total": 135.68,
+      "Date": "Sun Apr 14 2019 15:13:32 GMT+0300 (Doğu Avrupa Yaz Saati)",
+      "timestamp": 1555244012770
+    },
+    {
+      "fis": [
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "18.23",
+          "miktar": "0.450"
+        },
+        {
+          "adet": 3,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "176.18",
+          "miktar": "1.450"
+        }
+      ],
+      "satisTipi": "Nakit",
+      "total": 194.41,
+      "Date": "Sun Apr 14 2019 15:15:26 GMT+0300 (Doğu Avrupa Yaz Saati)",
+      "timestamp": 1555244126894
+    },
+    {
+      "fis": [
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "18.23",
+          "miktar": "0.450"
+        }
+      ],
+      "satisTipi": "Nakit",
+      "total": 18.23,
+      "Date": "Sun Apr 14 2019 15:18:28 GMT+0300 (Doğu Avrupa Yaz Saati)",
+      "timestamp": 1555244308715
+    },
+    {
+      "fis": [
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "18.23",
+          "miktar": "0.450"
+        }
+      ],
+      "satisTipi": "Nakit",
+      "total": 18.23,
+      "Date": "Sun Apr 12 2019 15:18:59 GMT+0300 (Doğu Avrupa Yaz Saati)",
+      "timestamp": 1555244339699
+    },
+    {
+      "fis": [
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "18.23",
+          "miktar": "0.450"
+        },
+        {
+          "adet": 2,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "36.45",
+          "miktar": "0.450"
+        },
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "18.23",
+          "miktar": "0.450"
+        },
+        {
+          "adet": 1,
+          "name": "Tulum",
+          "birim": "KG",
+          "code": "0112",
+          "fiyat": "21.60",
+          "miktar": "0.450"
+        },
+        {
+          "adet": 1,
+          "name": "Taze Lor",
+          "birim": "KG",
+          "code": "0113",
+          "fiyat": "13.50",
+          "miktar": "0.450"
+        },
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "18.23",
+          "miktar": "0.450"
+        },
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "58.73",
+          "miktar": "1.450"
+        }
+      ],
+      "satisTipi": "Nakit",
+      "total": 184.97,
+      "Date": "Mon Apr 15 2019 11:34:54 GMT+0300 (Doğu Avrupa Yaz Saati)",
+      "timestamp": 1555317294586
+    },
+    {
+      "fis": [
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "18.23",
+          "miktar": "0.450"
+        }
+      ],
+      "satisTipi": "Nakit",
+      "total": 16.41,
+      "Date": "Tue Apr 16 2019 19:28:44 GMT+0300 (Doğu Avrupa Yaz Saati)",
+      "timestamp": 1555432124386
+    },
+    {
+      "fis": [
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "18.23",
+          "miktar": "0.450"
+        }
+      ],
+      "satisTipi": "Nakit",
+      "total": 18.23,
+      "iskonto": 0,
+      "totaliskonto": 0,
+      "Date": "Fri Apr 19 2019 23:41:43 GMT+0200 (GTB Standart Saati)",
+      "timestamp": 1555710103014
+    },
+    {
+      "fis": [
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "12.15",
+          "miktar": "0.300"
+        },
+        {
+          "adet": 1,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "12.15",
+          "miktar": "0.300"
+        },
+        {
+          "adet": 2,
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "24.30",
+          "miktar": "0.300"
+        }
+      ],
+      "satisTipi": "Nakit",
+      "total": 48.6,
+      "iskonto": 0,
+      "totaliskonto": 0,
+      "Date": "Mon Apr 22 2019 18:18:43 GMT+0200 (GTB Standart Saati)",
+      "timestamp": 1555949923364,
+      "fisno": 1555949912510
+    },
+    {
+      "fis": [
+        {
+          "adet": 1,
+          "barcode": "1230111004501",
+          "name": "Taze Tulum",
+          "birim": "KG",
+          "code": "0111",
+          "fiyat": "18.23",
+          "miktar": "0.450"
+        }
+      ],
+      "satisTipi": "Nakit",
+      "total": 18.23,
+      "iskonto": 0,
+      "totaliskonto": 0,
+      "Date": "Mon Apr 22 2019 18:21:11 GMT+0200 (GTB Standart Saati)",
+      "timestamp": 1555950071689,
+      "fisno": 1555950069774
+    },
+    {
+      "fis": [
+        {
+          "adet": 1,
+          "barcode": "8690115004009",
+          "name": "Datça Köy Peyniri",
+          "birim": "KG",
+          "code": "0115",
+          "fiyat": "16.20",
+          "miktar": "0.400"
+        }
+      ],
+      "satisTipi": "Nakit",
+      "total": 13.28,
+      "iskonto": 18,
+      "totaliskonto": 2.92,
+      "Date": "Mon Mar 02 2020 01:58:12 GMT+0200 (GTB Standart Saati)",
+      "timestamp": 1583107092778,
+      "fisno": 1583107049608
+    }
+  ],
+  "stock": [
+    {
+      "timestamp": 1583466615428,
+      "date": "06.03.2020 05:50:15",
+      "stokAlaniCode": "099",
+      "uruncode": "0010",
+      "miktar": "1000",
+      "sorumlu": {
+        "name": "Burak İmrek",
+        "password": "Deneme",
+        "alancode": "101",
+        "isActive": true
+      }
+    },
+    {
+      "timestamp": 1583467054467,
+      "date": "06.03.2020 05:57:34",
+      "stokAlaniCode": "099",
+      "uruncode": "0010",
+      "miktar": "123",
+      "sorumlu": []
+    },
+    {
+      "timestamp": 1583467531642,
+      "date": "06.03.2020 06:05:31",
+      "stokAlaniCode": "099",
+      "uruncode": "0010",
+      "miktar": "123333",
+      "sorumlu": {
+        "name": "Burak İmrek",
+        "password": "Deneme",
+        "alancode": "101",
+        "isActive": true
+      }
+    },
+    {
+      "timestamp": 1583468092670,
+      "date": "06.03.2020 06:14:52",
+      "stokAlaniCode": "099",
+      "uruncode": "0010",
+      "miktar": "12",
+      "sorumlu": {
+        "name": "Burak İmrek",
+        "alancode": "101"
+      }
+    },
+    {
+      "timestamp": 1583468140915,
+      "date": "06.03.2020 06:15:40",
+      "stokAlaniCode": "099",
+      "uruncode": "0010",
+      "miktar": "11111",
+      "sorumlu": "Burak İmrek"
+    },
+    {
+      "timestamp": 1583468405198,
+      "date": "06.03.2020 06:20:05",
+      "stokAlaniCode": "099",
+      "uruncode": "0010",
+      "miktar": "123333",
+      "sorumlu": {
+        "name": "Burak İmrek",
+        "alancode": "101"
+      }
+    },
+    {
+      "timestamp": 1583468640859,
+      "date": "06.03.2020 06:24:00",
+      "stokAlaniCode": "099",
+      "uruncode": "0010",
+      "miktar": 120.3,
+      "sorumlu": {
+        "name": "Burak İmrek",
+        "alancode": "101"
+      }
+    }
+  ],
+  "fis": []
+}

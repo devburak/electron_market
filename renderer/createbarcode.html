@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Barkod Oluştur</title>
+    <link rel="stylesheet" href="../node_modules/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="./css/icon.css">
+    <link href="./css/css/all.css" rel="stylesheet">
+    <link href="./css/js/all.js" rel="stylesheet">
+    
+  <link rel="stylesheet" href="../node_modules/flatpickr/dist/flatpickr.min.css">
+    <script src="../component/JsBarcode.all.min.js"></script>
+
+</head>
+
+<body onload="initial()">
+    <div class="panel" style="height: 100vh;">
+        <div class="panel-nav">
+            <!-- navigation components: tabs, breadcrumbs or pagination -->
+        </div>
+        <div class="panel-body" style="height:100%">
+            <!-- contents -->
+            <div class="input-group m-1">
+                <strong>Mağaza Bilgileri</strong>
+            </div>
+            <div class="input-group m-1">
+                <span class="input-group-addon" style="width:33%">Mağaza Adı</span>
+                <input id="sahip_name" class="form-input" readonly placeholder="Adı" >
+            </div>
+            <div class="input-group m-1">
+                <span class="input-group-addon" style="width:33%">Üretici Kodu</span>
+                <input id="uretici_cod" class="form-input" placeholder="Kod" readonly maxlength="4">
+            </div>
+            <div class="input-group m-1">
+                <span class="input-group-addon" style="width:33%">Ülke Kodu</span>
+                <input id="ulke_cod" class="form-input" placeholder="Kod" readonly maxlength="4">
+            </div>
+            <div class="input-group m-1">
+                <form class="form-group m-2">
+                    <label class="form-radio form-inline">
+                      <input type="radio" id="urun" name="barcodetipi" checked=true value="urun"
+                        onclick="barcodetipchange(this)"><i class="form-icon"></i> Ürün Barkodu
+                    </label>
+                    <label class="form-radio form-inline">
+                      <input type="radio" id="tarti" name="barcodetipi" value="tarti" onclick="barcodetipchange(this)"><i
+                        class="form-icon"></i> Tartı Barkodu
+                    </label>
+                    
+                  </form>
+                  
+            </div>
+            <div class="input-group m-1">
+                <select class="form-select" id="urunler" onchange="urunlerChange()">
+
+                </select>
+                
+              </div>
+              <div class="input-group m-1">
+                <span class="input-group-addon">Ürün Kodu</span>
+                <input id="createbarcode_prcode" class="form-input" readonly placeholder="Ürün Kodu">
+              </div>
+              <div class="input-group m-1">
+                <div class="container grid-lg">
+                    <div class="columns">
+                            <div class="column col-12 col-xs-12">
+                                    <div class="input-group">
+                                        <label class="form-switch">
+                                            <input type="checkbox" id="addName" checked onchange="addnamechange(this)">
+                                            <i class="form-icon"></i>
+                                            Ürün Adını dahil et
+                                        </label>
+                        
+                                    </div>
+                                </div>
+                    </div>
+                <div class="columns">
+                    <div class="column col-6 col-xs-12">
+                        <div class="input-group">
+                            <label class="form-switch">
+                                <input type="checkbox" id="addSTT" checked onchange="STTchange()"><i class="form-icon"></i>
+                                Son Kullanma Tarihi
+                            </label>
+            
+                        </div>
+                    </div>
+                    <div class="column col-6 col-xs-12">
+                        <div class="flatpickr" id="sttdiv">
+                            <input type="text" id="STT" style="width:100%" placeholder="Son Kullanma Tarihi.." data-input
+                                onchange="sttdatechange(this)">
+                            <!-- input is mandatory -->
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+              </div>
+            <div class="m-1" id="urun_panel">
+                <strong>Urun Barkodu</strong>
+               
+                <div id="barcode_Urun">
+                    <div class="loading loading-lg" id="urunler_loading" style="display: none;" ></div>
+                                    
+                         <canvas id="urunbarcode" width="210px" height="150px"></canvas>
+              
+
+                </div>
+            </div>
+            <div class="m-1" id="tarti_panel" style="display: none;" >
+                <strong>Tartı Barkodu</strong>
+                <div class="input-group m-1">
+                    <span class="input-group-addon">Miktar (gr,lt,adet ..)</span>
+                    <input id="createbarcode_miktar" oninput="createbarcode_miktarChange(this.value)" class="form-input"
+                      placeholder="Miktar (gr,lt,adet ..)">
+                  </div>
+                  <span id="miktar_span"></span>
+                <div id="barcode_Tarti">
+                    <div class="loading loading-lg" id="tarti_loading" style="display: none;" ></div>
+                    <canvas id="tartibarcode"></canvas>
+                </div>
+                
+            </div>
+            <div class="container grid-lg">
+                <strong>İşlemler</strong>
+                <div id="islemler" class="columns">
+                        <div class="column col-6 col-xs-12  p-centered"> 
+                            <a id="btn" class="btn  btn-primary" download="barcode.png"
+                            onclick="download_barcode(this)" style=" width: 100%; min-height: 10px"> 
+                            <i class="fas fa-download"></i>
+                            <strong>Barcodu kaydet</strong>
+                        </a>
+                        </div>
+                        <div class="column col-6 col-xs-12 p-centered"> 
+                                <button id="btn" class="btn  btn-success" 
+                                onclick="print()" style=" width: 100%; min-height: 10px"> 
+                                <i class="fas fa-print"></i>
+                                <strong>Barcodu yazdır</strong>
+                                </button>
+                            </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <!-- buttons or inputs -->
+            <div class="m-1">
+               
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="./createbarcode.js"></script>
+</body>
+
+</html>

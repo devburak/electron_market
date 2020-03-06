@@ -1,0 +1,18 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.datca.app
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - ia32
+  icon: build/icon.ico
+nsis:
+  deleteAppDataOnUninstall: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Elektron-Datca
+  artifactName: 'Elektron-Datca.Setup.${version}.${ext}'
+electronVersion: 3.1.8

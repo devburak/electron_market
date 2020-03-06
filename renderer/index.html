@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Datça Rüzgarı</title>
+  <link rel="stylesheet" href="../node_modules/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="./css/icon.css">
+  <link href="./css/css/all.css" rel="stylesheet">
+  <link href="./css/js/all.js" rel="stylesheet">
+
+  <link rel="stylesheet" href="../node_modules/flatpickr/dist/flatpickr.min.css">
+  <script src="../component/JsBarcode.all.min.js"></script>
+
+</head>
+
+<body onload="startTime() , initial()">
+  <header class="navbar" style="margin-bottom: 20px">
+    <section class="navbar-section">
+      <button id="main" class="btn btn-link mx-1" onclick="back();"> <i class="icon icon-back"></i>
+        <strong>geri</strong></button>
+      <button id="main" class="btn btn-link mx-1" onclick="changeEkran('ekran1')"> <i class="icon icon-apps"></i>
+        <strong>Ana Ekran</strong></button>
+    </section>
+    <section class="navbar-center">
+      <!-- centered logo or brand -->
+      <h2 id="page" style="margin: inherit"></h2>
+    </section>
+    <section class="navbar-section">
+      <button id="main" class="btn btn-link mx-1" onclick="ipcRenderer.send('barcode-window')"> <i
+          class="fas fa-barcode"></i>
+        <strong>Barkod
+          oluştur</strong></button>
+      <p class="btn btn-link" style="margin: inherit"><span id="clock"> </span> </p>
+    </section>
+  </header>
+  <div class="container">
+    <div id="ekran1" style="display: inherit;">
+      <div class="columns mt-1">
+        <div class="column col-xs-6 p-centered"> <button id="main" class="btn  btn-primary"
+            onclick="changeEkran('ekran2')" style=" width: 100%; min-height: 100px"> <i class="fas fa-lira-sign"></i>
+            <strong>Satış</strong></button>
+        </div>
+        <div class="column col-xs-6 p-centered"> <button id="main" class="btn " onclick="changeEkran('ekran3')"
+            style=" width: 100%; min-height: 100px">
+            <i class="fas fa-check-double"></i></i> <strong>Satış Raporları</strong></button></div>
+      </div>
+      <div class="columns mt-1">
+        <div class="column col-xs-6 p-centered"> <button id="main" class="btn  btn-success"
+            onclick="changeEkran('ekran4')" style=" width: 100%; min-height: 100px"> <i class="fas fa-layer-group"></i>
+            <strong>Stok
+              Girişi</strong></button></div>
+        <div class="column col-xs-6 p-centered"> <button id="main" class="btn btn-success"
+            onclick="changeEkran('ekran5')" style=" width: 100%; min-height: 100px">
+            <i class="fas fa-file-alt"></i> <strong>Stok Raporu</strong></button></div>
+      </div>
+      <div class="columns mt-1">
+        <div class="column col-xs-6 p-centered"> <button id="main" class="btn  btn-error"
+            onclick="changeEkran('ekran6')" style=" width: 100%; min-height: 100px"> <i class="fas fa-bars"></i>
+            <strong>
+              Kayıtlı Ürünler</strong></button></div>
+        <div class="column col-xs-6 p-centered"> <button id="main" class="btn btn-error" onclick="changeEkran('ekran7')"
+            style=" width: 100%; min-height: 100px">
+            <i class="fas fa-cheese"></i> <strong>Yeni Ürün Tanımla</strong></button></div>
+      </div>
+      <div class="columns mt-1">
+        <div class="column col-xs-6 p-centered"> <button id="main" class="btn" onclick="changeEkran('ekran8')"
+            style=" width: 100%; min-height: 100px">
+            <i class="fas fa-users-cog"></i> <strong>
+              Kayıtlı Müşteriler</strong></button></div>
+        <div class="column col-xs-6 p-centered"> <button id="main" class="btn" onclick="changeEkran('ekran9')"
+            style=" width: 100%; min-height: 100px">
+            <i class="fas fa-user-plus"></i> <strong>Yeni Müşteri Tanımla</strong></button></div>
+      </div>
+      <div class="columns mt-1">
+        <div class="column col-xs-6 p-centered"> <button id="main" class="btn" onclick="changeEkran('ekran8')"
+            style=" width: 100%; min-height: 100px">
+            <i class="fas fa-users-cog"></i> <strong>
+              Kayıtlı Müşteriler</strong></button></div>
+        <div class="column col-xs-6 p-centered"> <button id="main" class="btn"
+            onclick="ipcRenderer.send('config-window')" style=" width: 100%; min-height: 100px">
+            <i class="fas fa-cogs"></i> <strong>Uygulama Ayarları</strong></button></div>
+      </div>
+    </div>
+
+    <div id="ekran2" style="display: none;">
+      <div class="columns">
+        <div class="column col-sm-6">
+          <div class="input-group m-1">
+            <span class="input-group-addon">Adet</span>
+            <input id="adet" type="number" value="1" class="form-input" placeholder="Adet">
+          </div>
+          <div class="has-icon-left m-1">
+            <i class="form-icon icon icon-arrow-right"></i>
+            <input id="barcode" type="text" oninput="barcodeChange(this.value)" class="form-input" placeholder="BARKOD">
+          </div>
+          <form class="form-group m-2">
+            <label class="form-radio form-inline">
+              <input type="radio" id="nakit" name="satistipi" checked=true value="Nakit"
+                onclick="satisTipiChange(this)"><i class="form-icon"></i> Nakit
+            </label>
+            <label class="form-radio form-inline">
+              <input type="radio" id="kredikart" name="satistipi" value="Kredi Kartı" onclick="satisTipiChange(this)"><i
+                class="form-icon"></i> Kredi Kartı
+            </label>
+            <label class="form-radio form-inline">
+              <input type="radio" id="aciksatis" name="satistipi" value="Açık Satış" onclick="satisTipiChange(this)"><i
+                class="form-icon"></i> Açık Satış
+            </label>
+          </form>
+          <div class="has-icon-left m-1">
+            <button id="satis" class="btn btn-success" onclick="satis()" style=" width: 100%">
+              Satışı Tamamla</button>
+          </div>
+          <div class="has-icon-left m-1">
+            <button id="satis" class="btn btn-error" onclick="satisTemizle()" style=" width: 100%">
+              Temizle</button>
+          </div>
+          <div class="has-icon-left m-1">
+            <button type="button" class="btn  btn-primary" style="width:100%" onclick="printfis()">
+              Fiş Yazdır
+            </button>
+          </div>
+          <div class="input-group m-1">
+            <span class="input-group-addon">İskonto %</span>
+            <input id="adet" type="number" oninput="iskontoChange(this.value)" value="0" class="form-input"
+              placeholder="İskonto %">
+          </div>
+          <div class="input-group m-1">
+            <div class="card" id="create_barcode" style="border-color: red; display: none">
+              <div class="card-header">
+                <div class="card-subtitle text-gray">Ürün Barkodu Oluşturun</div>
+              </div>
+              <div class="input-group m-1">
+                <select class="form-select" id="urunler" onchange="urunlerChange()">
+
+                </select>
+              </div>
+              <div class="input-group m-1">
+                <span class="input-group-addon">Ürün Kodu</span>
+                <input id="createbarcode_prcode" class="form-input" placeholder="Ürün Kodu">
+              </div>
+              <div class="input-group m-1">
+                <span class="input-group-addon">Miktar (gr,lt,adet ..)</span>
+                <input id="createbarcode_miktar" oninput="createbarcode_miktarChange(this.value)" class="form-input"
+                  placeholder="Miktar (gr,lt,adet ..)">
+              </div>
+              <div class="card-image" style=" text-align: center; width: 100%;">
+                <svg id="prbarcode"></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column col-sm-6" id="fis_col">
+          <h3 class="text-center">FİŞ</h3>
+          <div class="columns">
+
+            <div class="col-sm-12" style=" text-align: center; width: 100%;">
+              <canvas id="fisbarcode"></canvas>
+            </div>
+          </div>
+
+          <ul id="list"></ul>
+          <p id="total"> </p>
+        </div>
+      </div>
+
+    </div>
+    <div id="ekran3" style="display: none;">
+      <p id="gunlukRapor_adet">Raporlar</p>
+      <div class="columns">
+        <div class="column col-sm-6">
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Filitreler</div>
+            </div>
+            <div class="panel-nav">
+              <!-- navigation components: tabs, breadcrumbs or pagination -->
+            </div>
+
+            <div class="panel-body">
+              <div class="m-1">
+                <input type="text" id="fisno" style="width:100%" maxlength="13" placeholder="Fiş No">
+              </div>
+              <div class="flatpickr m-1">
+                <input type="text" id="basicDate" style="width:100%" placeholder="Tarih aralığı seçiniz.." data-input>
+                <!-- input is mandatory -->
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-success" style="width:100%" onclick="satisraporuGetir()">Getir</button>
+              <div id="rapor_ozet" class="m-1">
+                <div id="rapor_total">
+
+                </div>
+              </div>
+              <div class="m-1">
+                <div class="wrapper"><canvas id="chart-0"></canvas></div>
+              </div>
+              <div id="rapor_bars" class="m-1">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column col-sm-6">
+          <div id="fisList">
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div id="ekran4" style="display: none;">
+      <!-- stok Grişi düzenleme -->
+      <div class="container">
+        <div class="columns">
+          <div class="colummn col-6 col-xs-12">
+            <div class="panel">
+              <div class="panel-header">
+                <div class="panel-title h6">Stok Alanları</div>
+              </div>
+              <div class="panel-body" id="stok_alanlari">
+
+              </div>
+              <div class="panel-footer">
+                <div class="input-group m-1">
+                  <span class="input-group-addon">Adı :</span>
+                  <input id="Stok_Alani_Adi" type="text" class="form-input" placeholder="Adı">
+                </div>
+                <div class="input-group m-1">
+                  <select class="form-select" id="Stok_Alani_Nitelik">
+                    <option value="Mağaza">Mağaza</option>
+                    <option value="Mandıra">Mandıra</option>
+                    <option value="Depo">Depo</option>
+                  </select>
+                </div>
+                <div class="input-group m-1">
+                  <button class="btn " style="width: 100%;" id="stok_alani_update_onay"> Onayla</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="colummn col-6 col-xs-12">
+            <!-- stok Ürün detayı -->
+            <div class="panel">
+              <div class="panel-header">
+                <div class="panel-title h6">Stoğa Eklenecek Ürün</div>
+              </div>
+              <div class="panel-body" id="stok_alanlari_urun" style="visibility: hidden;">
+                  <div class="input-group m-1">
+                    <select class="form-select" id="Stok_urun" onchange="stok_urun_select_change(this)">
+                  
+                    </select>
+                  </div>
+                <div class="input-group m-1">
+                  <span class="input-group-addon" id="Stok_urun_miktar_addon">Miktar :</span>
+                  <input id="Stok_urun_miktar" type="number" class="form-input" placeholder="Miktar (KG,Litre,Adet)">
+                </div>
+                <div class="input-group m-1">
+                  <span class="input-group-addon" id="Stok_urun_gerekce_addon">Gerekçe :</span>
+                  <select class="form-select" id="Stok_urun_gerekce">
+                    <option value="Satis">Satış</option>
+                    <option value="Üretim">Üretim</option>
+                    <option value="Düzeltme">Düzeltme</option>
+                  </select>
+                </div>
+
+              </div>
+              <div class="panel-footer">
+                <button id="add_stok_button" class="btn ">
+                  <i class="icon icon-plus"></i>
+                  Stoğa Ekle
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
+    <div id="ekran5" style="display: none;">
+      <p>Ürünler</p>
+    </div>
+    <div id="ekran6" style="display: none;">
+      <div class="container">
+        <h3 class="s-title p-centered">
+          Kayıtlı Ürünler
+        </h3>
+        <div class="columns">
+          <div class="column col-4 col-xs-12">
+            <!-- Menü left side -->
+            <ul class="menu-item" id="urunmenulist">
+              <li class="divider" data-content="ÜRÜNLER"></li>
+            </ul>
+            <!-- içerik codan geliyor -->
+          </div>
+          <div class="column col-8 col-xs-12">
+            <!-- Düzenleme right side -->
+            <form class="form-horizontal" id="updateproduct">
+              <div class="form-group">
+                <div class="col-3">
+                  <label class="form-label" for="updateproductname">Ürün Adı</label>
+                </div>
+                <div class="col-9">
+                  <input class="form-input" id="updateproductname" placeholder="Ürün Adı">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-3">
+                  <label class="form-label" for="updateproductslug">Ürün Kısaltması</label>
+                </div>
+                <div class="col-9">
+                  <input class="form-input" maxlength="5" id="updateproductslug" placeholder="Ürün Kısaltması">
+                </div>
+              </div>
+              <div class="form-group" id="updateproductcode_form">
+                <div class="col-3">
+                  <label class="form-label" for="updateproductKod">Ürün Kodu</label>
+                </div>
+                <div class="col-9">
+                  <input class="form-input" id="updateproductcode" oninput="updatecodeChange(this.value)"
+                    placeholder="Ürün Kodu">
+                  <p class="form-input-hint" id="updateproductcode_hint" style="margin: 0 0 2px;"></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-3">
+                  <label class="form-label" for="updateproductBirim">Birim</label>
+                </div>
+                <div class="col-9">
+                  <select class="form-select" id="updateproductbirim">
+                    <option value="KG">KG</option>
+                    <option value="Adet">Adet</option>
+                    <option value="Litre">Litre</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-3">
+                  <label class="form-label" for="updateproductfiyat">Fiyat</label>
+                </div>
+                <div class="col-9">
+                  <input class="form-input" oninput="updateproductoninputFiyat(this.value)" id="updateproductfiyat"
+                    placeholder="Fiyat">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-3">
+                  <label class="form-label" for="updateproductnetagirlik">Net Ağırlık</label>
+                </div>
+                <div class="col-9">
+                  <input class="form-input" id="updateproductnetagirlik" placeholder="Net Ağırlık">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-3">
+                  <label class="form-label" for="updateproductisPacked">Paket olarak mı satılır ?</label>
+                </div>
+                <div class="col-9">
+                  <label class="form-switch">
+                    <input class="form-input" type="checkbox" id="updateproductisPacked"
+                      onchange="updateproductisPackedChange(this)">
+                    <i class="form-icon"></i>
+
+                  </label>
+
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-3">
+                  <label class="form-label" for="updateproductbarkod">Barcode</label>
+                  <button class="btn btn-action btn-primary btn-sm s-circle" onclick="updateproductbarkod()"><i
+                      class="icon icon-refresh"></i></button>
+                </div>
+                <div class="col-9">
+                  <label class="form-switch">
+                    <canvas id="updateproductbarkod" width="210px" height="150px"></canvas>
+
+                  </label>
+
+                </div>
+              </div>
+
+              <div class="form-group">
+
+                <button class="btn " style="width:100%"> Onayla </button>
+              </div>
+            </form>
+            <div class="container grid-lg">
+              <div id="button_group" class="columns" style="display: none;">
+                <div class="column col-6 col-xs-12  p-centered">
+                  <a id="btn" class="btn  btn-primary" download="barcode.png" onclick="download_barcode(this)"
+                    style=" width: 100%; min-height: 10px">
+                    <i class="fas fa-download"></i>
+                    Barcodu kaydet
+                  </a>
+                </div>
+                <div class="column col-6 col-xs-12 p-centered">
+                  <button id="btn" class="btn  btn-success" onclick="print('yeniurunbarkod','html')"
+                    style=" width: 100%; min-height: 10px">
+                    <i class="fas fa-print"></i>
+                    Barcodu yazdır
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- / Düzenleme right side -->
+          </div>
+        </div>
+        <!-- container ekran6 /div -->
+      </div>
+
+    </div>
+    <div id="ekran7" style="display: none;">
+
+      <form class="form-horizontal" id="newProduct">
+        <div class="form-group">
+          <div class="col-3">
+            <label class="form-label" for="name">Ürün Adı</label>
+          </div>
+          <div class="col-9">
+            <input class="form-input" id="name" placeholder="Ürün Adı">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-3">
+            <label class="form-label" for="slug">Ürün Kısaltması</label>
+          </div>
+          <div class="col-9">
+            <input class="form-input" maxlength="5" id="slug" placeholder="Ürün Kısaltması">
+          </div>
+        </div>
+        <div class="form-group" id="code_form">
+          <div class="col-3">
+            <label class="form-label" for="Kod">Ürün Kodu</label>
+          </div>
+          <div class="col-9">
+            <input class="form-input" id="code" oninput="codeChange(this.value)" placeholder="Ürün Kodu">
+            <p class="form-input-hint" id="code_hint"></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-3">
+            <label class="form-label" for="Birim">Birim</label>
+          </div>
+          <div class="col-9">
+            <select class="form-select" id="birim">
+              <option value="KG">KG</option>
+              <option value="Adet">Adet</option>
+              <option value="Litre">Litre</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-3">
+            <label class="form-label" for="fiyat">Fiyat</label>
+          </div>
+          <div class="col-9">
+            <input class="form-input" oninput="oninputFiyat(this.value)" id="fiyat" placeholder="Fiyat">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-3">
+            <label class="form-label" for="netagirlik">Net Ağırlık</label>
+          </div>
+          <div class="col-9">
+            <input class="form-input" id="netagirlik" placeholder="Net Ağırlık">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-3">
+            <label class="form-label" for="isPacked">Paket olarak mı satılır ?</label>
+          </div>
+          <div class="col-9">
+            <label class="form-switch">
+              <input class="form-input" type="checkbox" id="isPacked" onchange="isPackedChange(this)">
+              <i class="form-icon"></i>
+
+            </label>
+
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-3">
+            <label class="form-label" for="yeniurunbarkod">Barcode</label>
+          </div>
+          <div class="col-9">
+            <label class="form-switch">
+              <canvas id="yeniurunbarkod" width="210px" height="150px"></canvas>
+
+            </label>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+
+          <button class="btn " style="width:100%"> Onayla </button>
+        </div>
+      </form>
+
+      <div class="container grid-lg">
+        <div id="button_group" class="columns" style="display: none;">
+          <div class="column col-6 col-xs-12  p-centered">
+            <a id="btn" class="btn  btn-primary" download="barcode.png" onclick="download_barcode(this)"
+              style=" width: 100%; min-height: 10px">
+              <i class="fas fa-download"></i>
+              Barcodu kaydet
+            </a>
+          </div>
+          <div class="column col-6 col-xs-12 p-centered">
+            <button id="btn" class="btn  btn-success" onclick="print('yeniurunbarkod','html')"
+              style=" width: 100%; min-height: 10px">
+              <i class="fas fa-print"></i>
+              Barcodu yazdır
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="ekran8" style="display: none;">
+      <p>Ürünler</p>
+    </div>
+    <div id="ekran9" style="display: none;">
+      <p>Ürünler</p>
+    </div>
+
+  </div>
+  <script src="./index.js"></script>
+
+
+
+</body>
+
+</html>

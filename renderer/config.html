@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Uyguama Ayarları</title>
+    <link rel="stylesheet" href="../node_modules/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="./css/icon.css">
+    <link href="./css/css/all.css" rel="stylesheet">
+    <link href="./css/js/all.js" rel="stylesheet">
+
+</head>
+
+<body onload="initial()">
+    <div class="panel" style="height: 100vh;">
+        <div class="panel-header">
+            <div class="panel-title">Ayarlar <span id="version"></span></div>
+           
+
+        </div>
+        <div class="panel-nav">
+            <!-- navigation components: tabs, breadcrumbs or pagination -->
+        </div>
+        <div class="panel-body" style="height:100%">
+            <!-- contents -->
+            <div class="input-group m-1">
+                <strong>Mağaza Bilgileri</strong>
+            </div>
+            <div class="input-group m-1">
+                <span class="input-group-addon" style="width:33%">Mağaza Adı</span>
+                <input id="magaza_name" class="form-input" placeholder="Adı">
+            </div>
+            <div class="input-group m-1">
+                <span class="input-group-addon" style="width:33%">Mağaza Kodu</span>
+                <input id="magaza_code" class="form-input" placeholder="Kod" maxlength="3">
+            </div>
+            <div class="input-group m-1">
+                <span class="input-group-addon" style="width:33%">Mağaza Adresi</span>
+                <textarea class="form-input" id="magaza_adres" placeholder="Adres" rows="2"></textarea>
+            </div>
+            <div class="m-1">
+                <strong>Sorumlu Bilgileri</strong>
+                <div id="sorumlular">
+
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <!-- buttons or inputs -->
+            <div class="m-1">
+                <button class="btn" style="width:100%" onclick="confirm()">Kaydet</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="./config.js"></script>
+</body>
+
+</html>

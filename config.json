@@ -1,0 +1,48 @@
+{
+  "sahip": {
+    "name": "DATÇA RÜZGARI",
+    "code": "0328",
+    "trcode": "869"
+  },
+  "sorumlular": [
+    {
+      "name": "Burak İmrek",
+      "password": "Deneme",
+      "alancode": "101",
+      "isActive": true
+    }
+  ],
+  "stokAlanlari": [
+    {
+      "name": "Satış Mağazası",
+      "nitelik": "Mağaza",
+      "code": "101",
+      "adres": "undefined"
+    },
+    {
+      "name": "Üretim Tesisi",
+      "code": "100",
+      "nitelik": "Mandıra"
+    },
+    {
+      "name": "Depo",
+      "code": "099",
+      "nitelik": "Mandıra"
+    },
+    {
+      "code": "102",
+      "name": "Çarşı Mağaza",
+      "nitelik": "Mağaza"
+    }
+  ],
+  "magaza": {
+    "name": "",
+    "code": 0,
+    "adres": ""
+  },
+  "app": {
+    "version": "1.0.1",
+    "published": "2019",
+    "author": "Burak İmrek"
+  }
+}
