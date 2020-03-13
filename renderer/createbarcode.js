@@ -56,7 +56,7 @@ function initial(){
    state.sahip = config.get('sahip').value()
    state.urunler = db.get('products').value()
    state.user = config.get('sorumlular').find({isActive:true}).value()
-   console.log('user',state.user)
+
    if(!state.user) {
     openModal()
    }

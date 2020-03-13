@@ -1,6 +1,6 @@
 'use strict'
 const { ipcRenderer } = require('electron');
-const { webContents,BrowserWindow} = require('electron');
+const { webContents,BrowserWindow,remote} = require('electron');
 
  const utils= require('../component/charutils');
 
@@ -11,8 +11,6 @@ var print = require('print-js')
 // require("./node_modules/flatpickr/dist/flatpickr.min.css");
 // require("./node_modules/flatpickr/dist/flatpickr.dark.min.css");
 const TR = require("flatpickr/dist/l10n/tr").default.tr;
-
-
 
 db.defaults({ products: [], customer: [], fis: [], satis:[] }).write()
 
@@ -45,17 +43,69 @@ flatpickr("#basicDate", {
   defaultDate : today
 });
 
+function openModal() {
+  let win = new remote.BrowserWindow({
+    parent: remote.getCurrentWindow(),
+    modal: true,
+    transparent: true, 
+    frame: false
+  })
+
+  var theUrl = 'file://' +remote.app.getAppPath()+'/component/modal/login.html'
+
+  win.loadURL(theUrl);
+  win.on('closed',()=>{
+    console.log('closed') 
+    state.user = config.get('sorumlular').find({isActive:true}).value()
+    console.log(state.user)
+  }    )
+}
 
 function initial(){
   document.getElementById('page').innerHTML ="Ana Ekran";
   state.prevPage= 'ekran1';
    state.sahip = config.get('sahip').value()
+   state.user = config.get('sorumlular').find({isActive:true}).value()
+   
    state.yeniurunbarkod=''
+   if(!state.user){
+    openModal()
+   }else{
+    var cikisButton = document.getElementById('cikis_button');
+
+    cikisButton.innerHTML ='<i class="fa fa-sign-out-alt"></i> <strong>'+state.user.name+'</strong>'
+   
+   }
+
+}
+
+function checkUser(){
+
+  state.user = config.get('sorumlular').find({isActive:true}).value()
+  console.log(state.user)
+  if(state.user){
+    var cikisButton = document.getElementById('cikis_button');
+    cikisButton.innerHTML ='<i class="fa fa-sign-out-alt"></i> <strong>'+state.user.name+'</strong>'
+   }
 }
 
 function back(){
   changeEkran(state.prevPage);
 }
+
+function giris_cikis() {
+  state.user = config.get('sorumlular').find({isActive:true}).value()
+
+  if(!state.user){
+    openModal()
+   }else{
+    config.get('sorumlular').find({isActive:true}).assign({ isActive: false}).write()
+    var cikisButton = document.getElementById('cikis_button');
+    cikisButton.innerHTML ='<i class="fa fa-sign-in-alt"></i> <strong>Giriş Yapın</strong>'
+   
+   }
+}
+
 async function printfis(){
 
   const fis =  document.getElementById('fis_col');
@@ -255,12 +305,16 @@ function checkTime(i) {
 }
 
 function satisTemizle(){
-  state = { 
-    fis: [],
-    satisTipi:"Nakit",
-    total:0 ,
-    fisno:0,
-  }
+  // state = { 
+  //   fis: [],
+  //   satisTipi:"Nakit",
+  //   total:0 ,
+  //   fisno:0,
+  // }
+  state.fis = []
+  state.satisTipi ="Nakit"
+  state.total = 0
+  state.fisno = 0
     document.getElementById("adet").value =1
     document.getElementById('list').innerHTML ='';
     document.getElementById('total').innerHTML = '';
@@ -268,6 +322,7 @@ function satisTemizle(){
     document.getElementById("barcode").value='';
     document.getElementById("barcode").focus();
     document.getElementById('create_barcode').style.display ='none'
+    fisNoCreate();
   
 }
 
@@ -457,52 +512,67 @@ function iskontoChange(val){
 
 function barcodeChange(val){
  
-  var adet = parseInt( document.getElementById("adet").value ) || 1;
-  if(val.length===13){
-   var sirketkodu = val.slice(0,3);
-   var uruncodu = val.slice(3,7);
-   var agirlik = parseInt( val.slice(7,12));
-   var control = val.slice(12,13);
-    if (state.fisno ==0) state.fisno = Date.now();
-   //örnek barkod : 1230111004501
-   
+  var adet = parseInt(document.getElementById("adet").value) || 1;
+  if (val.length === 13) {
+    var sirketkodu = val.slice(0, 3);
+    var uruncodu = val.slice(3, 7);
+    var agirlik = parseInt(val.slice(7, 12));
+    var control = val.slice(12, 13);
+    if (state.fisno == 0) state.fisno = Date.now();
+    //örnek barkod : 1230111004501
 
-   var urun = db.get('products').find({code:uruncodu}).value();
-   var TXT = 'ürün alınamadı';
-   var fis ={};
+
+    var urun = db.get('products').find({ code: uruncodu }).value();
+    var TXT = 'ürün alınamadı';
+    var fis = {};
     fis.adet = adet;
     fis.barcode = val
-   if(urun){
-    fis.name =urun.name 
-    fis.birim = urun.birim
-    fis.code = urun.code
-    if(urun.birim === 'KG') {
-    TXT = urun.name + ' '+ adet +'  X ' + (agirlik /1000).toFixed(3) + ' Kg,   ' + ((agirlik /1000)* urun.fiyat * adet ).toFixed(2) + ' TL'
-    fis.fiyat = parseFloat((agirlik /1000)* urun.fiyat * adet ).toFixed(2) ;
-    fis.miktar = parseFloat(agirlik /1000).toFixed(3);
-  }
-    else if(urun.birim === 'Litre'){
-    TXT = urun.name + ' '+ adet +'  X ' + (agirlik /100).toFixed(3) + ' lt, fiyat : ' + ((agirlik /100)* urun.fiyat * adet ).toFixed(2)  + ' TL'
-    fis.fiyat = parseFloat((agirlik /100)* urun.fiyat * adet ).toFixed(2) ;
-    fis.miktar = parseFloat(agirlik /100).toFixed(3) 
-  }
-    else if(urun.birim === 'Adet'){
-    TXT = urun.name + ' '+ adet +'  X ' + agirlik  + ' tane, fiyat : ' + (agirlik * urun.fiyat * adet).toFixed(2) + ' TL'
-    fis.fiyat = parseFloat(agirlik * urun.fiyat *adet).toFixed(2) ;
-    fis.miktar =parseInt(agirlik)
-    
-}
+    if(sirketkodu === '869'){
+      var barkodluurun = db.get('products').find({ barkod: val }).value();
+      if(barkodluurun){
+      fis.name = barkodluurun.name
+      fis.birim = barkodluurun.birim
+      fis.code = barkodluurun.code
+      TXT = barkodluurun.name + ' ' + adet + '  X ' + ' ,   ' + ( barkodluurun.fiyat * adet).toFixed(2) + ' TL'
 
-  state.fis.push(fis)
- priceCalculate();
-}
-   var ul = document.getElementById("list");
-   var li = document.createElement("li");
-   li.id = ul.getElementsByTagName("li").length;
-   li.onclick = function() { deleteFromList(li); };
-   li.appendChild(document.createTextNode(TXT));
-   ul.appendChild(li);
+      fis.fiyat = parseFloat( barkodluurun.fiyat * adet).toFixed(2);
+      fis.miktar = parseInt(adet)
+      }
+      state.fis.push(fis)
+      priceCalculate();
+    }
+    else if (urun) {
+      fis.name = urun.name
+      fis.birim = urun.birim
+      fis.code = urun.code
+      if (urun.birim === 'KG') {
+        TXT = urun.name + ' ' + adet + '  X ' + (agirlik / 1000).toFixed(3) + ' Kg,   ' + ((agirlik / 1000) * urun.fiyat * adet).toFixed(2) + ' TL'
+        fis.fiyat = parseFloat((agirlik / 1000) * urun.fiyat * adet).toFixed(2);
+        fis.miktar = parseFloat(agirlik / 1000).toFixed(3);
+      }
+      else if (urun.birim === 'Litre') {
+        TXT = urun.name + ' ' + adet + '  X ' + (agirlik / 100).toFixed(3) + ' lt, fiyat : ' + ((agirlik / 1000) * urun.fiyat * adet).toFixed(2) + ' TL'
+        fis.fiyat = parseFloat((agirlik / 1000) * urun.fiyat * adet).toFixed(2);
+        fis.miktar = parseFloat(agirlik / 1000).toFixed(3)
+      }
+      else if (urun.birim === 'Adet') {
+        TXT = urun.name + ' ' + adet + '  X ' + agirlik + ' tane, fiyat : ' + (agirlik * urun.fiyat * adet).toFixed(2) + ' TL'
+        fis.fiyat = parseFloat(agirlik * urun.fiyat * adet).toFixed(2);
+        fis.miktar = parseInt(agirlik)
 
+      }
+
+      state.fis.push(fis)
+      priceCalculate();
+    }
+    var ul = document.getElementById("list");
+    var li = document.createElement("li");
+    li.id = ul.getElementsByTagName("li").length;
+    li.onclick = function () { deleteFromList(li); };
+    li.appendChild(document.createTextNode(TXT));
+    ul.appendChild(li);
+    document.getElementById('barcode').value ='';
+    document.getElementById('barcode').focus()
   }
 }
 function priceCalculate(){
@@ -518,8 +588,9 @@ function priceCalculate(){
     
   })
   fisNoCreate();
-
-  if(state.iskontoRate !== 0 ){
+  document.getElementById('barcode').focus()
+  console.log(!isNaN(state.iskontoRate))
+  if(state.iskontoRate !== 0 && !isNaN(state.iskontoRate)){
     state.iskontoReal = (state.iskontoRate * state.total /100 ).toFixed(2);
     state.total =( state.total - state.iskontoReal).toFixed(2)
     document.getElementById('total').innerHTML = '<p> iskonto % '+state.iskontoRate + '<strong> - '+ state.iskontoReal + ' TL</strong> <p>' + '<p><strong>Toplam : '+ state.total + ' TL</strong><p>'}
@@ -698,6 +769,7 @@ function getCurrentStock(){
 
 }
 
+
 function stok_alani_edit(code){
  
   ekran4initialize()
@@ -822,6 +894,47 @@ function ekran4initialize(){
 
  
 }
+
+function stok_alanlari_duzenle(){
+  document.getElementById('stok_gc_btn').className="btn btn-link btn-block"
+  document.getElementById('stok_alan_btn').className="btn btn-primary btn-block"
+
+  document.getElementById('stokPanel').style= "display: none"
+  document.getElementById('stokAlanlariPanel').style ="display : flex"
+}
+
+function stok_gc(){
+  document.getElementById('stok_gc_btn').className="btn btn-primary btn-block"
+  document.getElementById('stok_alan_btn').className="btn btn-link btn-block"
+  document.getElementById('stokPanel').style= "display: flex"
+  document.getElementById('stokAlanlariPanel').style ="display : none"
+
+}
+
+function changeStokgcEkran(value){
+  var unit = document.getElementById('stokgc_units')
+
+  if(value==='Sayım'){
+    var div = document.createElement('div')
+    div.className="form-group"
+    var label = document.createElement('label')
+    label.className="form-switch"
+    var input =document.createElement('input')
+    input.type="checkbox"
+    var i = document.createElement('i')
+    i.className = "form-icon"
+    label.appendChild(i)
+    label.innerText ="Barkod Kullan"
+    div.appendChild(label)
+    unit.appendChild(div)
+  }
+}
+
+function stokTypeChange(input){
+  console.log(input.value)
+  changeStokgcEkran(input.value) 
+}
+
 //bütün ekranların initialize funksiyonları
 
 
@@ -834,6 +947,7 @@ function ekran4initialize(){
         
         }
     }
+    checkUser()
     switch (ekran) {
         case 'ekran1': document.getElementById('ekran1').style.display ='inherit'
         document.getElementById('page').innerHTML ="Ana Ekran"
