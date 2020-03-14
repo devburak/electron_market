@@ -259,6 +259,11 @@
               </div>
             </div>
             <div class="colummn col-12 col-xs-12" id="stokgc_units">
+                <div class="input-group m-1">
+                    <select class="form-select" id="Stok_urun" onchange="stok_urun_select_change(this)">
+                  
+                    </select>
+                  </div>
 
               </div>
         </div>
@@ -272,20 +277,7 @@
 
               </div>
               <div class="panel-footer">
-                <div class="input-group m-1">
-                  <span class="input-group-addon">Adı :</span>
-                  <input id="Stok_Alani_Adi" type="text" class="form-input" placeholder="Adı">
-                </div>
-                <div class="input-group m-1">
-                  <select class="form-select" id="Stok_Alani_Nitelik">
-                    <option value="Mağaza">Mağaza</option>
-                    <option value="Mandıra">Mandıra</option>
-                    <option value="Depo">Depo</option>
-                  </select>
-                </div>
-                <div class="input-group m-1">
-                  <button class="btn " style="width: 100%;" id="stok_alani_update_onay"> Onayla</button>
-                </div>
+               
               </div>
             </div>
           </div>
@@ -297,39 +289,58 @@
 
             <div class="panel">
               <div class="panel-header">
-                <div class="panel-title h6">Stoğa Eklenecek Ürün</div>
+                <div class="panel-title h6">Stoğa Alanı Detayları</div>
               </div>
-              <div class="panel-body" id="stok_alanlari_urun" style="visibility: hidden;">
-                  <div class="input-group m-1">
-                    <select class="form-select" id="Stok_urun" onchange="stok_urun_select_change(this)">
-                  
-                    </select>
+              <div class="panel-body" id="stok_alanlari_urun">
+
+                <!-- /sağ taraf panel -->
+                <div class="input-group m-1">
+                  <span class="input-group-addon">Adı :</span>
+                  <input id="Stok_Alani_Adi" type="text" class="form-input" placeholder="Adı">
+                </div>
+                <div class="input-group m-1">
+                    <span class="input-group-addon">Kod :</span>
+                    <input id="Stok_Alani_Kod" type="text" class="form-input" disabled placeholder="Kod">
                   </div>
                 <div class="input-group m-1">
-                  <span class="input-group-addon" id="Stok_urun_miktar_addon">Miktar :</span>
-                  <input id="Stok_urun_miktar" type="number" class="form-input" placeholder="Miktar (KG,Litre,Adet)">
-                </div>
-                <div class="input-group m-1">
-                  <span class="input-group-addon" id="Stok_urun_gerekce_addon">Gerekçe :</span>
-                  <select class="form-select" id="Stok_urun_gerekce">
-                    <option value="Satis">Satış</option>
-                    <option value="Üretim">Üretim</option>
-                    <option value="Düzeltme">Düzeltme</option>
+                  <select class="form-select" id="Stok_Alani_Nitelik">
+                    <option value="Mağaza">Mağaza</option>
+                    <option value="Mandıra">Mandıra</option>
+                    <option value="Depo">Depo</option>
                   </select>
                 </div>
+                <div class="input-group m-1">
+                  <button class="btn " style="width: 100%;" id="stok_alani_update_onay"> Yeni Stok Alanı</button>
+                </div>
+                
 
               </div>
               <div class="panel-footer">
-                <button id="add_stok_button" class="btn ">
+                <!-- <button id="add_stok_button" class="btn ">
                   <i class="icon icon-plus"></i>
                   Stoğa Ekle
-                </button>
+                </button> -->
               </div>
 
             </div>
           </div>
 
+          <div class="column col-12 col-xs-12">
+              <div class="panel">
+                <div class="panel-header">
+                    <div class="chip" id="chip_div" >
+                        <figure id="chip_fig" class="avatar avatar" data-initial="" style="background-color: #5755d9;"></figure>
+                        <span id="chip_name"></span>
+                      </div>
+                      <!-- stok ürünleri list -->
+                      <div id="stok_urunleri">
+                        
+                      </div>
+                </div>
+              
 
+                </div>
+          </div>
         </div>
       </div>
 

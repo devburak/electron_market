@@ -524,154 +524,20 @@
       "timestamp": 1583466615428,
       "date": "06.03.2020 05:50:15",
       "stokAlaniCode": "099",
-      "uruncode": "0010",
-      "miktar": "1000",
+      "urunler": [
+        {
+          "uruncode": "0010",
+          "miktar": 1000
+        }
+      ],
       "sorumlu": {
         "name": "Burak İmrek",
         "password": "Deneme",
         "alancode": "101",
         "isActive": true
-      }
-    },
-    {
-      "timestamp": 1583467054467,
-      "date": "06.03.2020 05:57:34",
-      "stokAlaniCode": "099",
-      "uruncode": "0010",
-      "miktar": "123",
-      "sorumlu": []
-    },
-    {
-      "timestamp": 1583467531642,
-      "date": "06.03.2020 06:05:31",
-      "stokAlaniCode": "099",
-      "uruncode": "0010",
-      "miktar": "123333",
-      "sorumlu": {
-        "name": "Burak İmrek",
-        "password": "Deneme",
-        "alancode": "101",
-        "isActive": true
-      }
-    },
-    {
-      "timestamp": 1583468092670,
-      "date": "06.03.2020 06:14:52",
-      "stokAlaniCode": "099",
-      "uruncode": "0010",
-      "miktar": "12",
-      "sorumlu": {
-        "name": "Burak İmrek",
-        "alancode": "101"
-      }
-    },
-    {
-      "timestamp": 1583468140915,
-      "date": "06.03.2020 06:15:40",
-      "stokAlaniCode": "099",
-      "uruncode": "0010",
-      "miktar": "11111",
-      "sorumlu": "Burak İmrek"
-    },
-    {
-      "timestamp": 1583468405198,
-      "date": "06.03.2020 06:20:05",
-      "stokAlaniCode": "099",
-      "uruncode": "0010",
-      "miktar": "123333",
-      "sorumlu": {
-        "name": "Burak İmrek",
-        "alancode": "101"
-      }
-    },
-    {
-      "timestamp": 1583468640859,
-      "date": "06.03.2020 06:24:00",
-      "stokAlaniCode": "099",
-      "uruncode": "0010",
-      "miktar": 120.3,
-      "sorumlu": {
-        "name": "Burak İmrek",
-        "alancode": "101"
-      }
-    },
-    {
-      "timestamp": 1583534716071,
-      "date": "07.03.2020 00:45:16",
-      "stokAlaniCode": "101",
-      "uruncode": "0114",
-      "miktar": 100,
-      "sorumlu": {
-        "name": "Burak İmrek",
-        "alancode": "101"
-      }
-    },
-    {
-      "timestamp": 1584122995648,
-      "date": "13.03.2020 20:09:55",
-      "stokAlaniCode": "102",
-      "uruncode": "0010",
-      "miktar": 6400.1,
-      "sorumlu": {
-        "name": "Burak İmrek",
-        "alancode": "101"
-      }
-    },
-    {
-      "timestamp": 1584122997219,
-      "date": "13.03.2020 20:09:57",
-      "stokAlaniCode": "102",
-      "uruncode": "0010",
-      "miktar": 6400.1,
-      "sorumlu": {
-        "name": "Burak İmrek",
-        "alancode": "101"
-      }
-    },
-    {
-      "timestamp": 1584123001021,
-      "date": "13.03.2020 20:10:01",
-      "stokAlaniCode": "102",
-      "uruncode": "0010",
-      "miktar": 6400.1,
-      "sorumlu": {
-        "name": "Burak İmrek",
-        "alancode": "101"
-      }
-    },
-    {
-      "timestamp": 1584123009249,
-      "date": "13.03.2020 20:10:09",
-      "stokAlaniCode": "102",
-      "uruncode": "0010",
-      "miktar": 6400,
-      "sorumlu": {
-        "name": "Burak İmrek",
-        "alancode": "101"
-      }
-    },
-    {
-      "timestamp": 1584123010303,
-      "date": "13.03.2020 20:10:10",
-      "stokAlaniCode": "102",
-      "uruncode": "0010",
-      "miktar": 6400,
-      "sorumlu": {
-        "name": "Burak İmrek",
-        "alancode": "101"
-      }
-    },
-    {
-      "timestamp": 1584123010543,
-      "date": "13.03.2020 20:10:10",
-      "stokAlaniCode": "102",
-      "uruncode": "0010",
-      "miktar": 6400,
-      "sorumlu": {
-        "name": "Burak İmrek",
-        "alancode": "101"
       }
     }
   ],
-  "fis": []
+  "fis": [],
+  "stock_hareketleri": []
 }

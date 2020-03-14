@@ -20,11 +20,6 @@
       "adres": "Datça"
     },
     {
-      "name": "Üretim Tesisi",
-      "code": "100",
-      "nitelik": "Mandıra"
-    },
-    {
       "name": "Depo",
       "code": "099",
       "nitelik": "Mandıra"
@@ -33,6 +28,16 @@
       "code": "102",
       "name": "Çarşı Mağaza",
       "nitelik": "Mağaza"
+    },
+    {
+      "code": "103",
+      "name": "Üretim Tesisi",
+      "nitelik": "Mandıra"
+    },
+    {
+      "code": "104",
+      "name": "Deneme",
+      "nitelik": "Mandıra"
     }
   ],
   "magaza": {

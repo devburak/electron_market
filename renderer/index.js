@@ -732,12 +732,40 @@ document.getElementById('updateproduct').addEventListener('submit', (evt) => {
 function add_Stok_To_Alan(code){
   document.getElementById('Stok_Alani_Adi').value = ''
   document.getElementById('Stok_Alani_Nitelik').value = 'Mağaza'
+  document.getElementById('Stok_Alani_Kod').value=''
   ekran4initialize()
-  document.getElementById('stok_alanlari_urun').style.visibility='inherit'
-  document.getElementById('add_stok_button').onclick = function(){
-    addStok(code)
-  }
+  console.log(code)
+
+  var Stokurunleri = db.get('stock').find({stokAlaniCode:code}).value()
+  console.log(Stokurunleri)
+  // document.getElementById('add_stok_button').onclick = function(){
+  //   addStok(code)
+  // }
   document.getElementById('namebutton_'+code).className = "btn btn-success active col-8"
+
+  document.getElementById('chip_fig').setAttribute('data-initial' ,Stokurunleri ? Stokurunleri.sorumlu.name.slice(0,1):'')
+  document.getElementById('chip_name').innerText =Stokurunleri? Stokurunleri.sorumlu.name:''
+
+  var div = document.getElementById('stok_urunleri')
+  div.innerText=""
+  if(Stokurunleri)
+  Stokurunleri.urunler.map((urun,index)=>{
+    var detay = db.get('products').find({code:urun.uruncode}).value()
+    if(detay){
+    var p = document.createElement('p')
+    var innerhtml = ""
+    innerhtml +=  `<strong> ${detay.name} </strong>`
+    if( detay.isPacked)
+    innerhtml += ` ${urun.miktar} paket toplam değeri : <strong> ${urun.miktar * detay.fiyat} </strong> TL`
+    else 
+    innerhtml += ` ${urun.miktar} ${detay.birim} toplam değeri : <strong> ${urun.miktar/1000 * detay.fiyat} </strong> TL`
+
+    p.innerHTML = innerhtml
+
+    div.appendChild(p)
+
+    }
+  })
  
 
 }
@@ -746,6 +774,10 @@ function stok_urun_select_change(input){
   var selectedurun =  db.get('products').find({code:input.value}).value()
   document.getElementById("Stok_urun_miktar_addon").innerText = selectedurun.isPacked? 'Paket Sayısı :' : 'Miktar :'
 }
+
+//addstock yapısı değişecek
+
+
 function addStok(alancode){
   
   var date = new Date()
@@ -754,14 +786,21 @@ function addStok(alancode){
   var gerekce = document.getElementById('Stok_urun_gerekce').value;
   var miktar = document.getElementById('Stok_urun_miktar').value;
   var sorumlu =(({name,alancode}) => ({name,alancode})) (config.get('sorumlular').find({isActive:true}).value())
-  db.get('stock').push({
-    timestamp: Date.now(),
-    date: date.toLocaleString(),
-    stokAlaniCode:alancode,
-    uruncode:uruncode,
-    miktar:parseFloat(miktar),
-    sorumlu:sorumlu
-  }).write()
+
+
+  // db.get('stock').push({
+  //   timestamp: Date.now(),
+  //   date: date.toLocaleString(),
+  //   stokAlaniCode:alancode,
+  //   uruncode:uruncode,
+  //   miktar:parseFloat(miktar),
+  //   sorumlu:sorumlu
+  // }).write()
+
+  var urunlerurun =   db.get('stock').find('urunler',urunler=>urunler.uruncode === uruncode).value()
+
+  console.log(urunlerurun)
+  
 
 }
 
@@ -777,6 +816,7 @@ function stok_alani_edit(code){
     var stok_alani = config.get('stokAlanlari').find({code:code}).value();
     document.getElementById('Stok_Alani_Adi').value = stok_alani.name
     document.getElementById('Stok_Alani_Nitelik').value = stok_alani.nitelik
+    document.getElementById('Stok_Alani_Kod').value = stok_alani.code
   document.getElementById('editbutton_'+code).className = "btn btn-success s-circle float-right"
   document.getElementById('stok_alani_update_onay').innerText ="Güncelle"
   document.getElementById('stok_alani_update_onay').onclick = function(){
@@ -824,18 +864,27 @@ function stok_alani_yeni(){
 }
 
 function stok_alani_delete(code){
-  config.get('stokAlanlari')
+  var stokalaniurunler = db.get('stock').find({stokAlaniCode:code}).value() || ''
+
+
+
+  if(confirm(`Bu Alanda ${stokalaniurunler.urunler?stokalaniurunler.urunler.length: 0 } adet ürün bulanmaktadır.\nSilme işleminiz sonucunda bu ürünler sahipsiz kalacaktır.`)){
+    config.get('stokAlanlari')
   .remove({ code:code})
   .write()
   ekran4initialize()
+  }else{
+    ekran4initialize()
+  }
+  
 }
 
 function ekran4initialize(){
-  document.getElementById('stok_alani_update_onay').innerText ="Onay"
+  document.getElementById('stok_alani_update_onay').innerText ="Yeni Stok Alanı"
   document.getElementById('stok_alani_update_onay').onclick = function(){
     stok_alani_yeni()
   }
-  document.getElementById('stok_alanlari_urun').style.visibility='hidden'
+ 
   var stokAlanlari =  config.get('stokAlanlari').value()
   state.stokAlanlari = stokAlanlari
   var cont = document.getElementById('stok_alanlari')
