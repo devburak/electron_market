@@ -259,11 +259,35 @@
               </div>
             </div>
             <div class="colummn col-12 col-xs-12" id="stokgc_units">
-                <div class="input-group m-1">
-                    <select class="form-select" id="Stok_urun" onchange="stok_urun_select_change(this)">
-                  
+              <div id="sayim_panel" style="display: inherit;">
+                
+              </div>
+
+              <div id="uretim_panel" style="display: none;">
+
+                  <div class="input-group m-1">
+                    <span class="input-group-addon">Kullanılan Süt :</span>
+                    <input id="sut_kullanilan" type="number" class="form-input" placeholder="Litre değeri ">
+                  </div>
+                  <div class="input-group m-1">
+                    <span class="input-group-addon"> Üretilen Ürün :</span>
+                    <select class="form-select" id="uretilen_urun_select" >
                     </select>
                   </div>
+                  <div class="flatpickr m-1">
+                      <input type="text" id="uretim_tarihi" style="width:100%" placeholder="Üretim_Tarihi.." data-input>
+                      <!-- input is mandatory -->
+                    </div>
+                
+              
+              </div>
+              <div id="fire_panel" style="display: none;">
+                  <div class="input-group m-1">
+                      <select class="form-select" id="Stok_urun" onchange="stok_urun_select_change(this)">
+                    
+                      </select>
+                    </div>
+              </div>
 
               </div>
         </div>
@@ -334,7 +358,7 @@
                       </div>
                       <!-- stok ürünleri list -->
                       <div id="stok_urunleri">
-                        
+
                       </div>
                 </div>
               

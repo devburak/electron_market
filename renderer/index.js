@@ -43,6 +43,14 @@ flatpickr("#basicDate", {
   defaultDate : today
 });
 
+flatpickr("#uretim_tarihi", {
+  dateFormat: "d/m/y h:m",
+  enableTime: true,
+  "locale": TR,
+  minDate: "today",
+  defaultDate : today
+});
+
 function openModal() {
   let win = new remote.BrowserWindow({
     parent: remote.getCurrentWindow(),
@@ -933,13 +941,26 @@ function ekran4initialize(){
  var urunler = db.get('products').value()
 
  var select = document.getElementById('Stok_urun')
+ var urunselect = document.getElementById('uretilen_urun_select')
  select.innerHTML=''
+ urunselect.innerHTML =''
+
  urunler.map((urun,index)=>{
    var option = document.createElement('option')
    option.value = urun.code
    option.innerText = urun.name + ' ' +  urun.code +( urun.isPacked? ' - '+ urun.netagirlik + ' ' + urun.birim : ' - ' +urun.slug)
-    select.appendChild(option)
+   select.appendChild(option)
  })
+
+ urunler.map((urun,index)=>{
+  var option = document.createElement('option')
+  option.value = urun.code
+  option.innerText = urun.name + ' ' +  urun.code +( urun.isPacked? ' - '+ urun.netagirlik + ' ' + urun.birim : ' - ' +urun.slug)
+  if(urun.code !== "0010")
+  urunselect.appendChild(option)
+
+})
+
 
  
 }
@@ -964,18 +985,19 @@ function changeStokgcEkran(value){
   var unit = document.getElementById('stokgc_units')
 
   if(value==='Sayım'){
-    var div = document.createElement('div')
-    div.className="form-group"
-    var label = document.createElement('label')
-    label.className="form-switch"
-    var input =document.createElement('input')
-    input.type="checkbox"
-    var i = document.createElement('i')
-    i.className = "form-icon"
-    label.appendChild(i)
-    label.innerText ="Barkod Kullan"
-    div.appendChild(label)
-    unit.appendChild(div)
+    document.getElementById('sayim_panel').style="display: inherit"
+    document.getElementById('uretim_panel').style= "display: none"
+    document.getElementById('fire_panel').style ="display: none"
+  }
+  else if(value==='Üretim'){
+    document.getElementById('sayim_panel').style="display: none"
+    document.getElementById('uretim_panel').style= "display: inherit"
+    document.getElementById('fire_panel').style ="display: none"
+  }
+  else if(value==='Fire'){
+    document.getElementById('sayim_panel').style="display: none"
+    document.getElementById('uretim_panel').style= "display: none"
+    document.getElementById('fire_panel').style ="display: inherit"
   }
 }
 
